@@ -14,6 +14,10 @@ A lightweight module for managing player currency in D&D 5e on Foundry VTT.
 - Foundry VTT version 12 or later  
 - System: Dungeons & Dragons 5th Edition (dnd5e)
 
+## 📦 Installation
+
+- Manifest: https://github.com/InnocenteFederico/fvtt-CoinPurse/releases/download/1.0.0/module.json
+
 ## 📝 License
 
 This project is licensed under the MIT License.
