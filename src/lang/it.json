@@ -1,0 +1,32 @@
+{
+  "module": {
+    "title": "Borsa delle Monete"
+  },
+  "settings": {
+    "visibleCurrencies": {
+      "name": "Monete visibili",
+      "hint": "Seleziona quali monete mostrare e usare nel modulo."
+    }
+  },
+  "labels": {
+    "owned": "In possesso",
+    "modify": "Modifica",
+    "applyConversion": "Applica conversioni"
+  },
+  "buttons": {
+    "receive": "Ricevi",
+    "pay": "Paga"
+  },
+  "currency": {
+    "cp": "Rame (mr)",
+    "sp": "Argento (ma)",
+    "ep": "Elettro (me)",
+    "gp": "Oro (mo)",
+    "pp": "Platino (mp)"
+  },
+  "notifications": {
+    "noCharacterSelected": "Nessun personaggio selezionato.",
+    "notEnoughCurrency": "Non hai abbastanza {currency}.",
+    "notEnoughCurrencyTotal": "Non hai abbastanza denaro totale per effettuare il pagamento."
+  }
+}

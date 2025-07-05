@@ -1,0 +1,34 @@
+{
+  "id": "coin-purse",
+  "title": "Coin Purse",
+  "description": "A simple module to manage a coins in the game.",
+  "authors": [
+    {
+      "name": "Federico Innocente",
+      "discord": "midwhisper"
+    }
+  ],
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "esmodules": [
+    "src/scripts/main.js"
+  ],
+  "styles": [
+    "src/styles/coin-purse.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "src/lang/en.json"
+    },
+    {
+      "lang": "it",
+      "name": "Italiano",
+      "path": "src/lang/it.json"
+    }
+  ]
+}

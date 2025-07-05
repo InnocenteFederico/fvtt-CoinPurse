@@ -1,0 +1,42 @@
+<form class="coin-purse-app">
+  <table class="coin-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>{{localize "currency.cp"}}</th>
+        <th>{{localize "currency.sp"}}</th>
+        <th>{{localize "currency.ep"}}</th>
+        <th>{{localize "currency.gp"}}</th>
+        <th>{{localize "currency.pp"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{localize "labels.owned"}}</td>
+        <td>{{currency.cp}}</td>
+        <td>{{currency.sp}}</td>
+        <td>{{currency.ep}}</td>
+        <td>{{currency.gp}}</td>
+        <td>{{currency.pp}}</td>
+      </tr>
+      <tr>
+        <td>{{localize "labels.modify"}}</td>
+        <td><input type="number" name="cp" min="0" value="" /></td>
+        <td><input type="number" name="sp" min="0" value="" /></td>
+        <td><input type="number" name="ep" min="0" value="" /></td>
+        <td><input type="number" name="gp" min="0" value="" /></td>
+        <td><input type="number" name="pp" min="0" value="" /></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="form-group">
+    <input type="checkbox" id="applyConversion" name="applyConversion" {{#if applyConversion}}checked{{/if}} />
+    <label>{{localize "labels.applyConversion"}}</label>
+  </div>
+
+  <div class="form-group">
+    <button type="button" name="receive"><i class="fas fa-plus"></i>{{localize "buttons.receive"}}</button>
+    <button type="button" name="pay"><i class="fas fa-minus"></i>{{localize "buttons.pay"}}</button>
+  </div>
+</form>

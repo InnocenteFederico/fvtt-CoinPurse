@@ -1,0 +1,33 @@
+{
+  "module": {
+    "title": "Coin Purse"
+  },
+  "settings": {
+    "name": "Settings",
+    "visibleCurrencies": {
+      "name": "Visible currencies",
+      "hint": "Select which coin types to show and use in the module."
+    }
+  },
+  "labels": {
+    "owned": "Owned",
+    "modify": "Modify",
+    "applyConversion": "Apply conversion"
+  },
+  "buttons": {
+    "receive": "Receive",
+    "pay": "Pay"
+  },
+  "currency": {
+    "cp": "Copper (cp)",
+    "sp": "Silver (sp)",
+    "ep": "Electrum (ep)",
+    "gp": "Gold (gp)",
+    "pp": "Platinum (pp)"
+  },
+  "notifications": {
+    "noCharacterSelected": "No character is currently selected.",
+    "notEnoughCurrency": "You don't have enough {currency}.",
+    "notEnoughCurrencyTotal": "You don't have enough total currency to make the payment."
+  }
+}
