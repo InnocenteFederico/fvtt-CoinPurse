@@ -13,6 +13,8 @@
     "minimum": "12",
     "verified": "12"
   },
+  "manifest": "",
+  "download": "",
   "esmodules": [
     "src/scripts/main.js"
   ],
