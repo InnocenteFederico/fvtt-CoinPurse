@@ -4,9 +4,9 @@
   },
   "settings": {
     "name": "Settings",
-    "visibleCurrencies": {
-      "name": "Visible currencies",
-      "hint": "Select which coin types to show and use in the module."
+    "disableElectrum": {
+      "name": "Disable Electrum",
+      "hint": "Disable Electrum coin usage in this module"
     }
   },
   "labels": {

@@ -5,7 +5,7 @@
         <th></th>
         <th>{{localize "currency.cp"}}</th>
         <th>{{localize "currency.sp"}}</th>
-        <th>{{localize "currency.ep"}}</th>
+        {{#unless disableElectrum}}<th>{{localize "currency.ep"}}</th>{{/unless}}
         <th>{{localize "currency.gp"}}</th>
         <th>{{localize "currency.pp"}}</th>
       </tr>
@@ -15,7 +15,7 @@
         <td>{{localize "labels.owned"}}</td>
         <td>{{currency.cp}}</td>
         <td>{{currency.sp}}</td>
-        <td>{{currency.ep}}</td>
+        {{#unless disableElectrum}}<td>{{currency.ep}}</td>{{/unless}}
         <td>{{currency.gp}}</td>
         <td>{{currency.pp}}</td>
       </tr>
@@ -23,7 +23,7 @@
         <td>{{localize "labels.modify"}}</td>
         <td><input type="number" name="cp" min="0" value="" /></td>
         <td><input type="number" name="sp" min="0" value="" /></td>
-        <td><input type="number" name="ep" min="0" value="" /></td>
+        {{#unless disableElectrum}}<td><input type="number" name="ep" min="0" value="" /></td>{{/unless}}
         <td><input type="number" name="gp" min="0" value="" /></td>
         <td><input type="number" name="pp" min="0" value="" /></td>
       </tr>

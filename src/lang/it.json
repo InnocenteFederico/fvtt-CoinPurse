@@ -3,9 +3,10 @@
     "title": "Borsa delle Monete"
   },
   "settings": {
-    "visibleCurrencies": {
-      "name": "Monete visibili",
-      "hint": "Seleziona quali monete mostrare e usare nel modulo."
+    "name": "Impostazioni",
+    "disableElectrum": {
+      "name": "Disabilita Electrum",
+      "hint": "Disabilita l'uso delle monete di electrum nel modulo."
     }
   },
   "labels": {

@@ -2,14 +2,27 @@ import { CoinPurseApp } from "./coin-purse-app.js";
 
 Hooks.once("init", () => {
   console.log("Coin Purse | Module initialized");
+
+  // Registra l'impostazione per disabilitare l'electrum
+  game.settings.register("coin-purse", "disableElectrum", {
+    name: game.i18n.localize("settings.disableElectrum.name"),
+    hint: game.i18n.localize("settings.disableElectrum.hint"),
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
 });
 
 Hooks.on("getSceneControlButtons", controls => {
+  console.log("Coin Purse | controls: ", controls);
   if (controls.tokens) {
     const tool = {
       name: "coin-purse",
       title: "Coin Purse",
       icon: "fas fa-coins",
+      button: true,
       visible: true,
       onClick: () => {
         console.log("Coin Purse | Button clicked");

@@ -26,10 +26,43 @@ export class CoinPurseApp extends Application {
     }
 
     const currency = actor.system.currency ?? {};
+    const disableElectrum = game.settings.get("coin-purse", "disableElectrum");
+
+    // Filtra la valuta se electrum è disabilitato
+    const filteredCurrency = { ...currency };
+    if (disableElectrum) {
+      delete filteredCurrency.ep;
+    }
 
     return {
-      currency: currency
+      currency: filteredCurrency,
+      disableElectrum: disableElectrum
     };
+  }
+
+  _getCurrencyOrder() {
+    const disableElectrum = game.settings.get("coin-purse", "disableElectrum");
+    return disableElectrum
+      ? Constants.CURRENCY_ORDER.filter(type => type !== "ep")
+      : Constants.CURRENCY_ORDER;
+  }
+
+  _collectFormData(html) {
+    const data = {};
+    const disableElectrum = game.settings.get("coin-purse", "disableElectrum");
+    const types = Constants.CURRENCY_ORDER;
+    if (disableElectrum) {
+      const index = types.indexOf("ep");
+      if (index >= 0) {
+        types.splice(index, 1);
+      }
+    }
+
+    types.forEach(type => {
+      const val = parseInt(html.find(`input[name="${type}"]`).val());
+      data[type] = isNaN(val) ? 0 : val;
+    });
+    return data;
   }
 
   activateListeners(html) {
@@ -57,15 +90,6 @@ export class CoinPurseApp extends Application {
     });
   }
 
-  _collectFormData(html) {
-    const data = {};
-    ["cp", "sp", "ep", "gp", "pp"].forEach(type => {
-      const val = parseInt(html.find(`input[name="${type}"]`).val());
-      data[type] = isNaN(val) ? 0 : val;
-    });
-    return data;
-  }
-
   _applyCurrencyChange(actor, changes, isReceiving) {
     const current = foundry.utils.duplicate(actor.system.currency);
 
@@ -77,7 +101,7 @@ export class CoinPurseApp extends Application {
 
       // Gestione del caso di pagamento con borrowing
     } else {
-      const currencyOrder = Constants.CURRENCY_ORDER;
+      const currencyOrder = this._getCurrencyOrder();
       for (let i = 0; i < currencyOrder.length; i++) {
         const type = currencyOrder[i];
         current[type] -= changes[type];
@@ -126,7 +150,7 @@ export class CoinPurseApp extends Application {
   */
   _minimizeCurrency(actor) {
     const current = foundry.utils.duplicate(actor.system.currency);
-    const currencyOrder = Constants.CURRENCY_ORDER;
+    const currencyOrder = this._getCurrencyOrder();
 
     for (let i = 0; i < currencyOrder.length - 1; i++) {
       const fromType = currencyOrder[i];
