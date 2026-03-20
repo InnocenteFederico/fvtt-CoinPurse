@@ -8,14 +8,12 @@ export class CoinPurseApp extends Application {
       template: "modules/coin-purse/src/templates/coin-purse.hbs",
       width: 600,
       height: "auto",
-      resizable: true,
-      applyConversion: this._applyConversion
+      resizable: true
     });
   }
 
   constructor(options = {}) {
     super(options);
-    this._applyConversion = true; // default iniziale
   }
 
   getData() {
@@ -30,8 +28,7 @@ export class CoinPurseApp extends Application {
     const currency = actor.system.currency ?? {};
 
     return {
-      currency: currency,
-      applyConversion: this._applyConversion
+      currency: currency
     };
   }
 
@@ -42,19 +39,21 @@ export class CoinPurseApp extends Application {
     const actor = game.user.character;
     if (!actor) return;
 
-    html.find("#applyConversion").on("change", ev => {
-      this._applyConversion = ev.currentTarget.checked;
-    });
-
-
+    // Handler del click sul bottone per aggiungere monete
     html.find('button[name="receive"]').on("click", () => {
       const updates = this._collectFormData(html);
       this._applyCurrencyChange(actor, updates, true);
     });
 
+    // Handler del click sul bottone per pagare
     html.find('button[name="pay"]').on("click", () => {
       const updates = this._collectFormData(html);
-      this._applyCurrencyChange(actor, updates, false, this._applyConversion);
+      this._applyCurrencyChange(actor, updates, false);
+    });
+
+    // Handler del click sul bottone per convertire
+    html.find('button[name="convert"]').on("click", () => {
+      this._minimizeCurrency(actor);
     });
   }
 
@@ -67,48 +66,76 @@ export class CoinPurseApp extends Application {
     return data;
   }
 
-  _applyCurrencyChange(actor, changes, isReceiving, applyConversion = false) {
+  _applyCurrencyChange(actor, changes, isReceiving) {
     const current = foundry.utils.duplicate(actor.system.currency);
 
+    // Gestione del caso di aggiunta monete
     if (isReceiving) {
       for (const type in changes) {
         current[type] += changes[type];
       }
+
+      // Gestione del caso di pagamento con borrowing
     } else {
-      if (!applyConversion) {
-        // Pagamento diretto, senza conversione
-        for (const type in changes) {
-          if (current[type] < changes[type]) {
-            const label = game.i18n.localize(`currency.${type}`);
-            ui.notifications.warn(game.i18n.format("notifications.notEnoughCurrency", { currency: label }));
+      const currencyOrder = Constants.CURRENCY_ORDER;
+      for (let i = 0; i < currencyOrder.length; i++) {
+        const type = currencyOrder[i];
+        current[type] -= changes[type];
+
+        // Se negativo, prendi in prestito da monete superiori
+        while (current[type] < 0 && i + 1 < currencyOrder.length) {
+          // Trova la prima moneta superiore con valore > 0
+          let borrowIndex = i + 1;
+          while (borrowIndex < currencyOrder.length && current[currencyOrder[borrowIndex]] <= 0) {
+            borrowIndex++;
+          }
+
+          if (borrowIndex >= currencyOrder.length) {
+            // Non ci sono monete disponibili da cui prendere in prestito
+            ui.notifications.warn(game.i18n.format("notifications.notEnoughCurrencyTotal"));
             return;
+          }
+
+          // Converti a cascata da borrowIndex a i
+          for (let j = borrowIndex; j > i; j--) {
+            const fromType = currencyOrder[j];
+            const toType = currencyOrder[j - 1];
+            // Fai il borrowing da fromType a toType
+            current[fromType]--;
+            const conversion = Constants.CURRENCY_CONVERSION[fromType] / Constants.CURRENCY_CONVERSION[toType];
+            current[toType] += conversion;
           }
         }
 
-        for (const type in changes) {
-          current[type] -= changes[type];
-        }
-      } else {
-        // Pagamento con conversione
-        let currentValue = 0;
-        let changeValue = 0;
-        for (const i in Constants.CURRENCY_ORDER) {
-          const type = Constants.CURRENCY_ORDER[i];
-          currentValue += current[type] * Constants.CURRENCY_CONVERSION[type];
-          changeValue += changes[type] * Constants.CURRENCY_CONVERSION[type];
-        }
-        if (changeValue > currentValue) {
+        if (current[type] < 0) {
+          // Ancora negativo? Non abbiamo abbastanza monete in totale
           ui.notifications.warn(game.i18n.format("notifications.notEnoughCurrencyTotal"));
           return;
         }
+      }
+    }
 
-        currentValue -= changeValue;
-        for (let i = Constants.CURRENCY_ORDER.length - 1; i >= 0; i--) {
-          const type = Constants.CURRENCY_ORDER[i];
-          const typeValue = Math.floor(currentValue / Constants.CURRENCY_CONVERSION[type]);
-          current[type] = typeValue;
-          currentValue -= typeValue * Constants.CURRENCY_CONVERSION[type];
-        }
+    actor.update({ "system.currency": current }).then(() => {
+      this.element.find('input[type="number"]').val('');
+      this.render(false);
+    });
+  }
+
+  /*** 
+   * Funzione per minimizzare la valuta a quella più alta possibile, convertendo a cascata
+  */
+  _minimizeCurrency(actor) {
+    const current = foundry.utils.duplicate(actor.system.currency);
+    const currencyOrder = Constants.CURRENCY_ORDER;
+
+    for (let i = 0; i < currencyOrder.length - 1; i++) {
+      const fromType = currencyOrder[i];
+      const toType = currencyOrder[i + 1];
+
+      if (current[fromType] > 0) {
+        const conversion = Constants.CURRENCY_CONVERSION[toType] / Constants.CURRENCY_CONVERSION[fromType];
+        current[toType] += Math.floor(current[fromType] / conversion);
+        current[fromType] %= conversion;
       }
     }
 

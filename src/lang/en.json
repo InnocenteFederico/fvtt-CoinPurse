@@ -16,14 +16,15 @@
   },
   "buttons": {
     "receive": "Receive",
-    "pay": "Pay"
+    "pay": "Pay",
+    "convert": "Convert"
   },
   "currency": {
-    "cp": "Copper (cp)",
-    "sp": "Silver (sp)",
-    "ep": "Electrum (ep)",
-    "gp": "Gold (gp)",
-    "pp": "Platinum (pp)"
+    "cp": "Copper (CP)",
+    "sp": "Silver (SP)",
+    "ep": "Electrum (EP)",
+    "gp": "Gold (GP)",
+    "pp": "Platinum (PP)"
   },
   "notifications": {
     "noCharacterSelected": "No character is currently selected.",
