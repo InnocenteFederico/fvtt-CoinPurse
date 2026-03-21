@@ -17,6 +17,15 @@ Hooks.once("init", () => {
     default: false
   });
 
+  game.settings.register("coin-purse", "postTransferChatMessage", {
+    name: game.i18n.localize("settings.postTransferChatMessage.name"),
+    hint: game.i18n.localize("settings.postTransferChatMessage.hint"),
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true
+  });
+
 });
 
 Hooks.on("getSceneControlButtons", controls => {

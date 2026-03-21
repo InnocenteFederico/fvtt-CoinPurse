@@ -4,6 +4,7 @@ import {
   minimizeActorCurrency
 } from "./integration/transfer-service.js";
 import { getCoinPurseSocket } from "./integration/socket.js";
+import { createTransferChatMessage } from "./integration/chat-service.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -324,6 +325,14 @@ export class CoinPurseApp extends HandlebarsApplicationMixin(ApplicationV2) {
     this.element.querySelectorAll('input[type="number"]').forEach(i => {
       i.value = "";
     });
+
+    if (game.settings.get("coin-purse", "postTransferChatMessage")) {
+      await createTransferChatMessage(
+        sender,
+        recipient,
+        changes
+      );
+    }
 
     this.render();
   }

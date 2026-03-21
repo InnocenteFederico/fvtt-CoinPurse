@@ -7,6 +7,10 @@
     "disableElectrum": {
       "name": "Disable Electrum",
       "hint": "Disable Electrum coin usage in this module"
+    },
+    "postTransferChatMessage": {
+      "name": "Post transfer message to chat",
+      "hint": "When enabled, sending currency posts a chat message describing the transfer."
     }
   },
   "currency": {
@@ -36,6 +40,9 @@
       },
       "labels": {
         "defaultRecipient": "Select a recipient"
+      },
+      "messages": {
+        "transferMessage": "{sender} sent {amounts} to {recipient}."
       }
     }
   },

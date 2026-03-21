@@ -7,6 +7,10 @@
     "disableElectrum": {
       "name": "Disabilita Electrum",
       "hint": "Disabilita l'uso delle monete di electrum nel modulo."
+    },
+    "postTransferChatMessage": {
+      "name": "Invia messaggio in chat per i trasferimenti di monete",
+      "hint": "Se attivo, l'invio di valuta pubblica in chat un messaggio che descrive il trasferimento."
     }
   },
   "currency": {
@@ -36,6 +40,9 @@
       },
       "labels": {
         "defaultRecipient": "Seleziona un destinatario"
+      },
+      "messages": {
+        "transferMessage": "{sender} ha inviato {amounts} a {recipient}."
       }
     }
   },
