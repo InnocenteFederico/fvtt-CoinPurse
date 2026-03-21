@@ -1,4 +1,17 @@
 <form class="coin-purse-app">
+
+  <div class="coin-mode-bar">
+    <div class="coin-mode-toggle">
+      <button type="button" class="mode-button {{#if (eq mode 'manage')}}active{{/if}}" data-mode="manage">
+        {{localize "functions.manage.name"}}
+      </button>
+
+      <button type="button" class="mode-button {{#if (eq mode 'send')}}active{{/if}}" data-mode="send">
+        {{localize "functions.send.name"}}
+      </button>
+    </div>
+  </div>
+
   <table class="coin-table">
     <thead>
       <tr>
@@ -30,9 +43,56 @@
     </tbody>
   </table>
 
+  {{#if (eq mode "manage")}}
   <div class="form-group">
-    <button type="button" name="receive"><i class="fas fa-plus"></i>{{localize "buttons.receive"}}</button>
-    <button type="button" name="convert"><i class="fas fa-exchange-alt"></i>{{localize "buttons.convert"}}</button>
-    <button type="button" name="pay"><i class="fas fa-minus"></i>{{localize "buttons.pay"}}</button>
+    <button type="button" name="receive"><i class="fas fa-plus"></i>
+      {{localize "functions.manage.buttons.receive"}}
+    </button>
+    <button type="button" name="convert"><i class="fas fa-exchange-alt"></i>
+      {{localize "functions.manage.buttons.convert"}}
+    </button>
+    <button type="button" name="pay"><i class="fas fa-minus"></i>
+      {{localize "functions.manage.buttons.pay"}}
+    </button>
   </div>
+  {{/if}}
+
+  {{#if (eq mode "send")}}
+  <div class="coin-send-panel">
+
+    <div class="coin-recipient-select">
+
+      <!-- Selettore attuale -->
+      <button type="button" class="recipient-selected">
+        {{#if selectedRecipient}}
+        <img src="{{selectedRecipient.img}}" class="recipient-avatar" alt="{{selectedRecipient.name}}" />
+        <span class="recipient-name">{{selectedRecipient.name}}</span>
+        {{else}}
+        <span class="recipient-placeholder">
+          {{localize "functions.send.labels.defaultRecipient"}}
+        </span>
+        {{/if}}
+        <i class="fas fa-chevron-down"></i>
+      </button>
+
+      <!-- Dropdown -->
+      <div class="recipient-options hidden">
+        {{#each recipients}}
+        <button type="button" class="recipient-option" data-id="{{this.id}}">
+          <img src="{{this.img}}" class="recipient-avatar" alt="{{this.name}}" />
+          <span class="recipient-name">{{this.name}}</span>
+        </button>
+        {{/each}}
+      </div>
+
+    </div>
+
+    <!-- Bottone invio -->
+    <button type="button" name="send">
+      <i class="fas fa-paper-plane"></i>
+      {{localize "functions.send.buttons.send"}}
+    </button>
+
+  </div>
+  {{/if}}
 </form>

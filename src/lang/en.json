@@ -9,16 +9,6 @@
       "hint": "Disable Electrum coin usage in this module"
     }
   },
-  "labels": {
-    "owned": "Owned",
-    "modify": "Modify",
-    "applyConversion": "Apply conversion"
-  },
-  "buttons": {
-    "receive": "Receive",
-    "pay": "Pay",
-    "convert": "Convert"
-  },
   "currency": {
     "cp": "Copper (CP)",
     "sp": "Silver (SP)",
@@ -26,9 +16,35 @@
     "gp": "Gold (GP)",
     "pp": "Platinum (PP)"
   },
+  "labels": {
+    "owned": "Owned",
+    "modify": "Modify"
+  },
+  "functions": {
+    "manage": {
+      "name": "Manage",
+      "buttons": {
+        "receive": "Receive",
+        "pay": "Pay",
+        "convert": "Convert"
+      }
+    },
+    "send": {
+      "name": "Send",
+      "buttons": {
+        "send": "Send"
+      },
+      "labels": {
+        "defaultRecipient": "Select a recipient"
+      }
+    }
+  },
   "notifications": {
     "noCharacterSelected": "No character is currently selected.",
     "notEnoughCurrency": "You don't have enough {currency}.",
-    "notEnoughCurrencyTotal": "You don't have enough total currency to make the payment."
+    "notEnoughCurrencyTotal": "You don't have enough total currency to make the payment.",
+    "transferSystemNotReady": "Transfer system is not ready yet.",
+    "transferFailed": "Currency transfer failed.",
+    "noGMConnected": "A GM must be connected to complete the transfer."
   }
 }

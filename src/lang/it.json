@@ -9,16 +9,6 @@
       "hint": "Disabilita l'uso delle monete di electrum nel modulo."
     }
   },
-  "labels": {
-    "owned": "In possesso",
-    "modify": "Modifica",
-    "applyConversion": "Applica conversioni"
-  },
-  "buttons": {
-    "receive": "Ricevi",
-    "pay": "Paga",
-    "convert": "Converti"
-  },
   "currency": {
     "cp": "Rame (MR)",
     "sp": "Argento (MA)",
@@ -26,9 +16,35 @@
     "gp": "Oro (MO)",
     "pp": "Platino (MP)"
   },
+  "labels": {
+    "owned": "In possesso",
+    "modify": "Modifica"
+  },
+  "functions": {
+    "manage": {
+      "name": "Gestisci",
+      "buttons": {
+        "receive": "Ricevi",
+        "pay": "Paga",
+        "convert": "Converti"
+      }
+    },
+    "send": {
+      "name": "Invia",
+      "buttons": {
+        "send": "Invia"
+      },
+      "labels": {
+        "defaultRecipient": "Seleziona un destinatario"
+      }
+    }
+  },
   "notifications": {
     "noCharacterSelected": "Nessun personaggio selezionato.",
     "notEnoughCurrency": "Non hai abbastanza {currency}.",
-    "notEnoughCurrencyTotal": "Non hai abbastanza denaro totale per effettuare il pagamento."
+    "notEnoughCurrencyTotal": "Non hai abbastanza denaro totale per effettuare il pagamento.",
+    "transferSystemNotReady": "Il sistema di trasferimento non è ancora pronto.",
+    "transferFailed": "Il trasferimento di valuta non è riuscito.",
+    "noGMConnected": "Un GM deve essere connesso per completare il trasferimento."
   }
 }
