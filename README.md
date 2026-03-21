@@ -6,7 +6,7 @@ A lightweight module for managing player currency in Foundry VTT (D&D 5e).
 
 - View current coins (CP, SP, EP, GP, PP)
 - Add or remove coins using an easy interface
-- Optional automatic coin conversion (e.g. 1 GP → 10 SP)
+- Send coins to other player characters
 - Minimize the wallet by converting coins to higher denominations
 - Optional support for disabling EP (electrum)
 - Accessible through a button in the scene controls (`tokens` toolbar)
@@ -15,15 +15,19 @@ A lightweight module for managing player currency in Foundry VTT (D&D 5e).
 
 - Foundry VTT 13+
 - System: Dungeons & Dragons 5th Edition (`dnd5e`)
+- Module dependency: socketlib
 
 ## ▶️ Usage
 
-1. Make sure your user has an assigned character.
-2. From the scene controls, click the `coin-purse` tool button.
-3. In the Coin Purse window:
-   - `Receive`: add coins to the active character
-   - `Pay`: deduct coins and automatically borrow/convert from higher denominations if needed
-   - `Convert`: convert coins to minimize lower denominations
+### Manage mode
+
+- Receive: add coins to the active character
+- Pay: deduct coins (automatically borrows from higher denominations if needed)
+- Convert: convert coins to minimize lower denominations
+
+### Send mode
+
+Select a recipient from the dropdown, enter the amount of coins to send, and click Send to transfer currency to another player character.
 
 ## 📦 Installation
 
@@ -35,6 +39,7 @@ A lightweight module for managing player currency in Foundry VTT (D&D 5e).
 ## 🛠️ Module settings
 
 - `Disable Electrum`: when enabled, EP is hidden and excluded from conversions.
+- `Post transfer message to chat`: when enabled, sending currency creates a chat message describing the transfer
 
 ## 🌐 Localization
 
